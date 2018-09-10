@@ -106,7 +106,7 @@ func NewLogger(configs *Configs) (Logger, error) {
 		infoLogger:     log.New(os.Stdout, infoHeader, log.LstdFlags),
 		warnLogger:     log.New(os.Stdout, warnHeader, log.LstdFlags),
 		errorLogger:    log.New(os.Stderr, errorHeader, log.LstdFlags),
-		criticalLogger: log.New(os.Stderr, criticalHeader, log.Ldate|log.Ltime|log.Lshortfile),
+		criticalLogger: log.New(os.Stderr, criticalHeader, log.LstdFlags),
 	}, nil
 }
 
