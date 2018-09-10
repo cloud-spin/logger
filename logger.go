@@ -118,27 +118,27 @@ func (l *LoggerImpl) RegisterOnLog(handler OnLogHandler) {
 
 // Critical logs the message to the standard log package using Printf.
 func (l *LoggerImpl) Critical(format string, v ...interface{}) {
-	l.log(l.criticalLogger, LevelCritical, format, v)
+	l.log(l.criticalLogger, LevelCritical, format, v...)
 }
 
 // Error logs a error message to the standard log package.
 func (l *LoggerImpl) Error(format string, v ...interface{}) {
-	l.log(l.errorLogger, LevelError, format, v)
+	l.log(l.errorLogger, LevelError, format, v...)
 }
 
 // Warn logs a warning message to the standard log package.
 func (l *LoggerImpl) Warn(format string, v ...interface{}) {
-	l.log(l.warnLogger, LevelWarn, format, v)
+	l.log(l.warnLogger, LevelWarn, format, v...)
 }
 
 // Info logs a info message to the standard log package.
 func (l *LoggerImpl) Info(format string, v ...interface{}) {
-	l.log(l.infoLogger, LevelInfo, format, v)
+	l.log(l.infoLogger, LevelInfo, format, v...)
 }
 
 // Debug logs a debug message to the standard log package.
 func (l *LoggerImpl) Debug(format string, v ...interface{}) {
-	l.log(l.debugLogger, LevelDebug, format, v)
+	l.log(l.debugLogger, LevelDebug, format, v...)
 }
 
 // log logs the message to the standard log package.
@@ -147,7 +147,7 @@ func (l *LoggerImpl) log(logger *log.Logger, level byte, format string, v ...int
 		logger.Printf(format, v...)
 
 		if l.onLogHandler != nil {
-			l.onLogHandler(level, format, v)
+			l.onLogHandler(level, format, v...)
 		}
 	}
 }

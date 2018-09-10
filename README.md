@@ -34,7 +34,7 @@ func Example() {
 
 Output:
 ```
-[CRITICAL] 2018/09/10 11:20:11 Info message with '[[string]]' param
+[CRITICAL] 2018/09/10 11:20:11 Info message with 'string' param
 ```
 
 Also refer to the tests at [logger_test.go](logger_test.go).
