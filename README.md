@@ -3,6 +3,7 @@
 Package logger provides standard logging methods around the standard log package.
 Each logged line is prefixed with the logging level (Debug, Info, Warn, ...).
 The Enabled and Level configurations are respected every time the logging methods are called.
+Logger provides a Logger interface for easy mocking and also an OnLog handler to help identify logged data in unit tests.
 
 #### How to Use
 

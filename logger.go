@@ -144,7 +144,7 @@ func (l *LoggerImpl) Debug(format string, v ...interface{}) {
 // log logs the message to the standard log package.
 func (l *LoggerImpl) log(logger *log.Logger, level byte, format string, v ...interface{}) {
 	if l.Configs.Enabled && l.Configs.Level >= level {
-		logger.Printf(format, v)
+		logger.Printf(format, v...)
 
 		if l.onLogHandler != nil {
 			l.onLogHandler(level, format, v)
