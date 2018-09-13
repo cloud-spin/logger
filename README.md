@@ -5,6 +5,19 @@ Each logged line is prefixed with the logging level (Debug, Info, Warn, ...).
 The Enabled and Level configurations are respected every time the logging methods are called.
 Logger provides a Logger interface for easy mocking and also an OnLog handler to help identify logged data in unit tests.
 
+#### Install
+
+From a configured [Go environment](https://golang.org/doc/install#testing):
+```sh
+go get -u github.com/cloud-spin/logger
+```
+
+If you are using dep:
+```sh
+dep ensure -add github.com/cloud-spin/logger
+```
+
+
 #### How to Use
 
 Below example starts a enabled logger to Info level and logs a Info message with one parameter.
@@ -18,7 +31,7 @@ import (
 	"github.com/cloud-spin/logger"
 )
 
-func Example() {
+func main() {
 	configs := &logger.Configs{
 		Enabled: true,
 		Level:   logger.LevelInfo,
@@ -38,3 +51,13 @@ Output:
 ```
 
 Also refer to the tests at [logger_test.go](logger_test.go).
+
+
+## License
+MIT, see [LICENSE](LICENSE).
+
+"Use, abuse, have fun and contribute back!"
+
+
+## Contributions
+See [Contributions.md](https://github.com/cloud-spin/docs/blob/master/contributing.md).
