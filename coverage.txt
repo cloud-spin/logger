@@ -1,0 +1,16 @@
+mode: atomic
+github.com/cloud-spin/logger/logger.go:87.28,92.2 1 1
+github.com/cloud-spin/logger/logger.go:95.50,96.20 1 5
+github.com/cloud-spin/logger/logger.go:99.2,99.65 1 4
+github.com/cloud-spin/logger/logger.go:103.2,110.8 1 3
+github.com/cloud-spin/logger/logger.go:96.20,98.3 1 1
+github.com/cloud-spin/logger/logger.go:99.65,101.3 1 1
+github.com/cloud-spin/logger/logger.go:115.58,117.2 1 3
+github.com/cloud-spin/logger/logger.go:120.64,122.2 1 3
+github.com/cloud-spin/logger/logger.go:125.61,127.2 1 3
+github.com/cloud-spin/logger/logger.go:130.60,132.2 1 3
+github.com/cloud-spin/logger/logger.go:135.60,137.2 1 3
+github.com/cloud-spin/logger/logger.go:140.61,142.2 1 3
+github.com/cloud-spin/logger/logger.go:145.91,146.51 1 15
+github.com/cloud-spin/logger/logger.go:146.51,149.28 2 6
+github.com/cloud-spin/logger/logger.go:149.28,151.4 1 6

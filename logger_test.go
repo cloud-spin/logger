@@ -30,58 +30,6 @@ type logData struct {
 	v      []interface{}
 }
 
-var (
-	invalidConfigsTests = []struct {
-		name    string
-		configs *Configs
-	}{
-		{"nil configs", nil},
-		{"invalid level", &Configs{Level: 10}},
-	}
-
-	loggingTests = []struct {
-		name    string
-		logFunc func(l Logger, format string, v ...interface{})
-		logData *logData
-	}{
-		{
-			"Log Debug",
-			func(l Logger, format string, v ...interface{}) {
-				l.Debug(format, v)
-			},
-			&logData{level: LevelDebug, format: "Debug message %s", v: []interface{}{"Debug format"}},
-		},
-		{
-			"Log Info",
-			func(l Logger, format string, v ...interface{}) {
-				l.Info(format, v)
-			},
-			&logData{level: LevelInfo, format: "Info message %s", v: []interface{}{"Info format"}},
-		},
-		{
-			"Log Warn",
-			func(l Logger, format string, v ...interface{}) {
-				l.Warn(format, v)
-			},
-			&logData{level: LevelWarn, format: "Warn message %s", v: []interface{}{"Warn format"}},
-		},
-		{
-			"Log Error",
-			func(l Logger, format string, v ...interface{}) {
-				l.Error(format, v)
-			},
-			&logData{level: LevelError, format: "Error message %s", v: []interface{}{"Error format"}},
-		},
-		{
-			"Log Critical",
-			func(l Logger, format string, v ...interface{}) {
-				l.Critical(format, v)
-			},
-			&logData{level: LevelCritical, format: "Critical message %s", v: []interface{}{"Critical format"}},
-		},
-	}
-)
-
 func TestNewConfigsShouldReturnConfigsWithDefaultValuesSet(t *testing.T) {
 	configs := NewConfigs()
 
@@ -94,9 +42,20 @@ func TestNewConfigsShouldReturnConfigsWithDefaultValuesSet(t *testing.T) {
 }
 
 func TestNewLoggerWithInvalidConfigsShouldReturnError(t *testing.T) {
-	for _, tt := range invalidConfigsTests {
-		t.Run(tt.name, func(t *testing.T) {
-			logger, err := NewLogger(tt.configs)
+	invalidConfigsTests := map[string]struct {
+		configs *Configs
+	}{
+		"Test with nil configs": {
+			configs: nil,
+		},
+		"Test with invalid level": {
+			configs: &Configs{Level: 10},
+		},
+	}
+
+	for name, test := range invalidConfigsTests {
+		t.Run(name, func(t *testing.T) {
+			logger, err := NewLogger(test.configs)
 			if err == nil {
 				t.Errorf("Expected: %s; Got: %s", "error", "success")
 			}
@@ -108,6 +67,42 @@ func TestNewLoggerWithInvalidConfigsShouldReturnError(t *testing.T) {
 }
 
 func TestLogAllLevelsShouldLogMessages(t *testing.T) {
+	tests := map[string]struct {
+		logFunc func(l Logger, format string, v ...interface{})
+		logData *logData
+	}{
+		"Log Debug": {
+			logFunc: func(l Logger, format string, v ...interface{}) {
+				l.Debug(format, v)
+			},
+			logData: &logData{level: LevelDebug, format: "Debug message %s", v: []interface{}{"Debug format"}},
+		},
+		"Log Info": {
+			logFunc: func(l Logger, format string, v ...interface{}) {
+				l.Info(format, v)
+			},
+			logData: &logData{level: LevelInfo, format: "Info message %s", v: []interface{}{"Info format"}},
+		},
+		"Log Warn": {
+			logFunc: func(l Logger, format string, v ...interface{}) {
+				l.Warn(format, v)
+			},
+			logData: &logData{level: LevelWarn, format: "Warn message %s", v: []interface{}{"Warn format"}},
+		},
+		"Log Error": {
+			logFunc: func(l Logger, format string, v ...interface{}) {
+				l.Error(format, v)
+			},
+			logData: &logData{level: LevelError, format: "Error message %s", v: []interface{}{"Error format"}},
+		},
+		"Log Critical": {
+			logFunc: func(l Logger, format string, v ...interface{}) {
+				l.Critical(format, v)
+			},
+			logData: &logData{level: LevelCritical, format: "Critical message %s", v: []interface{}{"Critical format"}},
+		},
+	}
+
 	configs := &Configs{
 		Enabled: true,
 		Level:   LevelDebug,
@@ -125,21 +120,21 @@ func TestLogAllLevelsShouldLogMessages(t *testing.T) {
 		}
 	})
 
-	for _, tt := range loggingTests {
-		t.Run(tt.name, func(t *testing.T) {
-			tt.logFunc(logger, tt.logData.format, tt.logData.v)
+	for name, test := range tests {
+		t.Run(name, func(t *testing.T) {
+			test.logFunc(logger, test.logData.format, test.logData.v)
 
 			if lastLoggedData == nil {
 				t.Error("Expected: logged data; Got: nil")
 			}
-			if lastLoggedData.level != tt.logData.level {
-				t.Errorf("Expected: %d; Got: %d", tt.logData.level, lastLoggedData.level)
+			if lastLoggedData.level != test.logData.level {
+				t.Errorf("Expected: %d; Got: %d", test.logData.level, lastLoggedData.level)
 			}
-			if lastLoggedData.format != tt.logData.format {
-				t.Errorf("Expected: %s; Got: %s", tt.logData.format, lastLoggedData.format)
+			if lastLoggedData.format != test.logData.format {
+				t.Errorf("Expected: %s; Got: %s", test.logData.format, lastLoggedData.format)
 			}
-			if len(lastLoggedData.v) != len(tt.logData.v) {
-				t.Errorf("Expected: %d; Got: %d", len(lastLoggedData.v), len(tt.logData.v))
+			if len(lastLoggedData.v) != len(test.logData.v) {
+				t.Errorf("Expected: %d; Got: %d", len(lastLoggedData.v), len(test.logData.v))
 			}
 		})
 	}
