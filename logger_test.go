@@ -55,7 +55,7 @@ func TestNewLoggerWithInvalidConfigsShouldReturnError(t *testing.T) {
 
 	for name, test := range invalidConfigsTests {
 		t.Run(name, func(t *testing.T) {
-			logger, err := NewLogger(test.configs)
+			logger, err := New(test.configs)
 			if err == nil {
 				t.Errorf("Expected: %s; Got: %s", "error", "success")
 			}
@@ -107,7 +107,7 @@ func TestLogAllLevelsShouldLogMessages(t *testing.T) {
 		Enabled: true,
 		Level:   LevelDebug,
 	}
-	logger, err := NewLogger(configs)
+	logger, err := New(configs)
 	if err != nil {
 		t.Errorf("Expected: logger initialized; Got: %s", err.Error())
 	}
@@ -145,7 +145,7 @@ func TestLogLevelShouldBeRespected(t *testing.T) {
 		Enabled: true,
 		Level:   LevelCritical,
 	}
-	logger, err := NewLogger(configs)
+	logger, err := New(configs)
 	if err != nil {
 		t.Errorf("Expected: logger initialized; Got: %s", err.Error())
 	}
@@ -185,7 +185,7 @@ func TestLogDisabledShouldBeRespected(t *testing.T) {
 		Enabled: false,
 		Level:   LevelDebug,
 	}
-	logger, err := NewLogger(configs)
+	logger, err := New(configs)
 	if err != nil {
 		t.Errorf("Expected: logger initialized; Got: %s", err.Error())
 	}

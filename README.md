@@ -36,7 +36,7 @@ func main() {
 		Enabled: true,
 		Level:   logger.LevelInfo,
 	}
-	logger, err := logger.NewLogger(configs)
+	logger, err := logger.New(configs)
 	if err != nil {
 		fmt.Printf("Expected: logger initialized; Got: %s", err.Error())
 	}

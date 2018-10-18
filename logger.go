@@ -91,8 +91,8 @@ func NewConfigs() *Configs {
 	}
 }
 
-// NewLogger initializes a new instance of Logger.
-func NewLogger(configs *Configs) (Logger, error) {
+// New initializes a new instance of Logger.
+func New(configs *Configs) (Logger, error) {
 	if configs == nil {
 		return nil, errors.New("configs are required")
 	}
